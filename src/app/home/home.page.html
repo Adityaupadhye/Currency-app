@@ -1,20 +1,59 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
+  <ion-toolbar class="bg-primary">
+    <ion-title size="large" class="text-center text-white title">
+      CURRENCY CONVERTER
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <ion-card class="mx-0 px-0">
+          <ion-card-content>
+            <div class="row">
+              <div class="col">
+                <ion-input placeholder="Enter value" type="number" class="inp" [(ngModel)]="value"></ion-input>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <ion-label class="ms-2">From</ion-label>
+                <ion-item class="inp ms-1 mb-2">
+                  <ion-select placeholder="INR" slot="end" [(ngModel)]="cs.from" (ngModelChange)="changeBaseCurrency()">
+                    <div *ngFor="let code of Object.keys(cs.allCurrencies).sort()">
+                      <ion-select-option [value]="code">{{code}} {{cs.allCurrencies[code]}}</ion-select-option>
+                    </div>
+                  </ion-select>
+                </ion-item>
+              </div>
+              <div class="col-md-6">
+                <ion-label class="ms-2 mt-1">To</ion-label>
+                <ion-item class="inp me-1">
+                  <ion-select placeholder="INR" slot="end" [(ngModel)]="cs.to" (ngModelChange)="changeTargetCurrency()">
+                    <div 
+                    *ngFor="let code of Object.keys(cs.allCurrencies).sort()">
+                      <ion-select-option [value]="code">{{code}} {{cs.allCurrencies[code]}}</ion-select-option>
+                    </div>
+                  </ion-select>
+                </ion-item>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <ion-button color="success" class="my-2" expand="block" (click)="convert()">Convert</ion-button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <ion-input readonly class="ps-2 inp" [(ngModel)]="res"></ion-input>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
   </div>
 </ion-content>
